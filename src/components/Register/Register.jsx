@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useAuth } from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 const schema = yup.object().shape({
     name: yup.string().required('Name is required'),
@@ -29,14 +30,44 @@ const Register = () => {
     const onSubmit = async (data) => {
         try {
             setLoading(true);
-            await registerUser(data.email, data.password, data.name, data.photoURL);
+            
+            const userCredential = await registerUser(data.email, data.password, data.name, data.photoURL);
+            
+            //  save user data to MongoDB
+            const userData = {
+                name: data.name,
+                email: data.email,
+                photoURL: data.photoURL,
+                uid: userCredential.user.uid,
+                role: 'user', 
+                createdAt: new Date(),
+                reviews: [], 
+                watchlist: [], 
+            };
+
+            const response = await fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to save user data');
+            }
+
+            toast.success('Registration successful!');
             navigate('/');
         } catch (error) {
             console.error(error);
+            toast.error(error.message);
         } finally {
             setLoading(false);
         }
     };
+
+   
 
     return (
         <div className="min-h-screen pt-20 pb-12 flex flex-col bg-gradient-to-b from-[#1a1c2e] to-[#2a1c3f]">

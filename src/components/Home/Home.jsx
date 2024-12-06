@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaStar, FaGamepad, FaChevronLeft, FaChevronRight, FaFire, FaClock, FaTrophy } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
+
 const sliderData = [
   {
       id: 1,

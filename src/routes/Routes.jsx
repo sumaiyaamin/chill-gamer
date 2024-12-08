@@ -9,6 +9,7 @@ import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 import AllReviews from '../AllReviews/AllReviews';
 import MyReviews from '../components/MyReviews/MyReviews';
 import UpdateReview from '../components/UpdateReview/UpdateReview';
+import MyWatchlist from '../components/MyWatchlist/MyWatchlist';
 
 const router = createBrowserRouter([
     {
@@ -64,6 +65,15 @@ const router = createBrowserRouter([
                     </ProtectedRoute>
                 )
             },
+            {
+                path: '/my-watchlist',
+                element: (
+                    <ProtectedRoute>
+                        <MyWatchlist />
+                    </ProtectedRoute>
+                )
+            },
+        
         ]
     }
 ]);

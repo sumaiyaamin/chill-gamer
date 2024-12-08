@@ -51,7 +51,7 @@ const Navbar = () => {
         ...(user ? [
             { path: "/add-review", label: "Add Review" },
             { path: "/my-reviews", label: "My Reviews" },
-            { path: "/watchlist", label: "Game WatchList" }
+            { path: "/my-watchlist", label: "Game WatchList" }
         ] : [])
     ];
 

@@ -43,12 +43,14 @@ const sliderData = [
   }
 ];
 
+
 const Home = () => {
     const [games, setGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentSlide, setCurrentSlide] = useState(0);
-    const [activeTab, setActiveTab] = useState('all');
+   
+
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -68,6 +70,8 @@ const Home = () => {
         fetchGames();
     }, []);
 
+
+    
     // Auto-slide every 5 seconds
     useEffect(() => {
         const timer = setInterval(() => {

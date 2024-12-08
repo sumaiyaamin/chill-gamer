@@ -1,10 +1,19 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Navigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 const AddReview = () => {
     const navigate = useNavigate();
+    const { user, loading: authLoading } = useAuth();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+
+    // Redirect if not logged in
+    if (!authLoading && !user) {
+        return <Navigate to="/login" replace state={{ from: '/add-review' }} />;
+    }
 
     const [formData, setFormData] = useState({
         title: '',
@@ -16,7 +25,11 @@ const AddReview = () => {
         description: '',
         publisher: '',
         price: '',
-        reviewText: ''
+        reviewText: '',
+        userEmail: user?.email || '',
+        userName: user?.displayName || '',
+        createdAt: new Date().toISOString(),
+        userId: user?.uid || ''
     });
 
     const genres = [
@@ -31,25 +44,56 @@ const AddReview = () => {
         "Mobile", "Multiple Platforms"
     ];
 
+    useEffect(() => {
+        if (user) {
+            setFormData(prev => ({
+                ...prev,
+                userEmail: user.email,
+                userName: user.displayName,
+                userId: user.uid
+            }));
+        }
+    }, [user]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: value
         }));
-        setError(''); // Clear error when user makes changes
+        setError(''); 
+    };
+
+    const validateForm = () => {
+        if (!formData.title.trim()) return "Game title is required";
+        if (!formData.image.trim()) return "Game cover image URL is required";
+        if (!formData.genre) return "Please select a genre";
+        if (!formData.platform) return "Please select a platform";
+        if (!formData.rating) return "Please select a rating";
+        if (!formData.description.trim()) return "Game description is required";
+        if (!formData.publisher.trim()) return "Publisher name is required";
+        if (!formData.reviewText.trim()) return "Review text is required";
+        return null;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        const validationError = validateForm();
+        if (validationError) {
+            toast.error(validationError);
+            return;
+        }
+
         setLoading(true);
         setError('');
 
         try {
-            const response = await fetch('http://localhost:5000/reviews', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/reviews`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${await user.getIdToken()}`
                 },
                 body: JSON.stringify(formData)
             });
@@ -57,18 +101,52 @@ const AddReview = () => {
             const data = await response.json();
             
             if(response.ok && data.insertedId) {
-                alert('Review added successfully!');
-                navigate('/all-reviews');
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Your review has been added successfully',
+                    icon: 'success',
+                    confirmButtonText: 'View All Reviews',
+                    showCancelButton: true,
+                    cancelButtonText: 'Add Another Review'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/all-reviews');
+                    } else {
+                        // Reset form for new review
+                        setFormData(prev => ({
+                            ...prev,
+                            title: '',
+                            image: '',
+                            genre: '',
+                            platform: '',
+                            releaseYear: new Date().getFullYear(),
+                            rating: '',
+                            description: '',
+                            publisher: '',
+                            price: '',
+                            reviewText: ''
+                        }));
+                    }
+                });
             } else {
                 throw new Error(data.message || 'Failed to add review');
             }
         } catch (err) {
             console.error('Error adding review:', err);
+            toast.error('Failed to add review. Please try again.');
             setError('Failed to add review. Please try again.');
         } finally {
             setLoading(false);
         }
     };
+
+    if (authLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-500"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-[#1a1c2e] to-[#2a1c3f]">
@@ -83,6 +161,35 @@ const AddReview = () => {
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
+                        {/* User Information */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-200 mb-2">
+                                    User Email
+                                </label>
+                                <input 
+                                    type="email" 
+                                    name="userEmail"
+                                    value={formData.userEmail}
+                                    disabled
+                                    className="w-full px-4 py-2 rounded-lg bg-gray-700/30 border border-gray-600 text-gray-400 cursor-not-allowed"
+                                />
+                            </div>
+                            
+                            <div>
+                                <label className="block text-sm font-medium text-gray-200 mb-2">
+                                    User Name
+                                </label>
+                                <input 
+                                    type="text" 
+                                    name="userName"
+                                    value={formData.userName}
+                                    disabled
+                                    className="w-full px-4 py-2 rounded-lg bg-gray-700/30 border border-gray-600 text-gray-400 cursor-not-allowed"
+                                />
+                            </div>
+                        </div>
+
                         {/* Game Basic Info */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>

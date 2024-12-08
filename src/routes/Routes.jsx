@@ -4,6 +4,7 @@ import Home from '../components/Home/Home';
 import AddReview from '../components/AddReview/AddReview';
 import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
+import ReviewDetails from '../components/ReviewDetails/ReviewDetails'; // Import the ReviewDetails component
 import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 
 const router = createBrowserRouter([
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register />
+            },
+            {
+                path: '/reviews/:id', // New route for review details
+                element: <ReviewDetails /> // Component to display review details
             }
         ]
     }

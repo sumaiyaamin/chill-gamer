@@ -10,11 +10,6 @@ const AddReview = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    // Redirect if not logged in
-    if (!authLoading && !user) {
-        return <Navigate to="/login" replace state={{ from: '/add-review' }} />;
-    }
-
     const [formData, setFormData] = useState({
         title: '',
         image: '',
@@ -26,11 +21,14 @@ const AddReview = () => {
         publisher: '',
         price: '',
         reviewText: '',
-        userEmail: user?.email || '',
-        userName: user?.displayName || '',
-        createdAt: new Date().toISOString(),
-        userId: user?.uid || ''
+        reviewerName: '',
+        userEmail: '',
     });
+
+    // Redirect if not logged in
+    if (!authLoading && !user) {
+        return <Navigate to="/login" replace state={{ from: '/add-review' }} />;
+    }
 
     const genres = [
         "Action", "Adventure", "RPG", "Strategy", 
@@ -49,8 +47,7 @@ const AddReview = () => {
             setFormData(prev => ({
                 ...prev,
                 userEmail: user.email,
-                userName: user.displayName,
-                userId: user.uid
+                reviewerName: user.displayName || 'Anonymous User'
             }));
         }
     }, [user]);
@@ -88,19 +85,34 @@ const AddReview = () => {
         setLoading(true);
         setError('');
 
+        // Prepare the review data
+        const reviewData = {
+            title: formData.title,
+            image: formData.image,
+            genre: formData.genre,
+            platform: formData.platform,
+            rating: parseFloat(formData.rating),
+            releaseYear: parseInt(formData.releaseYear),
+            publisher: formData.publisher,
+            price: formData.price ? parseFloat(formData.price) : 0,
+            description: formData.description,
+            review: formData.reviewText,
+            reviewerName: formData.reviewerName,
+            userEmail: formData.userEmail
+        };
+
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/reviews`, {
+            const response = await fetch('http://localhost:5000/reviews', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${await user.getIdToken()}`
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(reviewData)
             });
 
             const data = await response.json();
             
-            if(response.ok && data.insertedId) {
+            if (response.ok) {
                 Swal.fire({
                     title: 'Success!',
                     text: 'Your review has been added successfully',
@@ -169,7 +181,6 @@ const AddReview = () => {
                                 </label>
                                 <input 
                                     type="email" 
-                                    name="userEmail"
                                     value={formData.userEmail}
                                     disabled
                                     className="w-full px-4 py-2 rounded-lg bg-gray-700/30 border border-gray-600 text-gray-400 cursor-not-allowed"
@@ -178,14 +189,14 @@ const AddReview = () => {
                             
                             <div>
                                 <label className="block text-sm font-medium text-gray-200 mb-2">
-                                    User Name
+                                    Reviewer Name
                                 </label>
                                 <input 
                                     type="text" 
-                                    name="userName"
-                                    value={formData.userName}
-                                    disabled
-                                    className="w-full px-4 py-2 rounded-lg bg-gray-700/30 border border-gray-600 text-gray-400 cursor-not-allowed"
+                                    name="reviewerName"
+                                    value={formData.reviewerName}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-white focus:outline-none focus:border-purple-500 transition-colors"
                                 />
                             </div>
                         </div>

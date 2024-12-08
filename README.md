@@ -1,7 +1,7 @@
 # Chill Gamer 🎮
 
 <div align="center">
-  <img src="./assets/logo.png" alt="Chill Gamer Logo" width="200"/>
+  <img src="./src/assets/game-logo.png" alt="Chill Gamer Logo" width="200"/>
   
   ### Your Ultimate Gaming Review Platform
 </div>

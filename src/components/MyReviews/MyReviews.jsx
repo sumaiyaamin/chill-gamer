@@ -42,34 +42,54 @@ const MyReviews = () => {
     };
 
     const handleDelete = async (reviewId) => {
-        try {
-            const result = await Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!'
-            });
-
-            if (result.isConfirmed) {
-                const response = await fetch(`http://localhost:5000/reviews/${reviewId}`, {
-                    method: 'DELETE'
-                });
-
-                if (response.ok) {
-                    setReviews(reviews.filter(review => review._id !== reviewId));
-                    toast.success('Review deleted successfully');
-                } else {
-                    throw new Error('Failed to delete review');
-                }
-            }
-        } catch (err) {
-            console.error('Error deleting review:', err);
-            toast.error('Failed to delete review');
-        }
-    };
+      try {
+          const result = await Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#d33',
+              cancelButtonColor: '#3085d6',
+              confirmButtonText: 'Yes, delete it!'
+          });
+  
+          if (result.isConfirmed) {
+              const response = await fetch(`http://localhost:5000/reviews/${reviewId}?userEmail=${user.email}`, {
+                  method: 'DELETE'
+              });
+  
+              const data = await response.json();
+  
+              if (response.ok) {
+                  setReviews(reviews.filter(review => review._id !== reviewId));
+                  toast.success('Review deleted successfully!', {
+                      position: "top-right",
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: isDark ? "dark" : "light",
+                  });
+              } else {
+                  throw new Error(data.message || 'Failed to delete review');
+              }
+          }
+      } catch (err) {
+          console.error('Error deleting review:', err);
+          toast.error(err.message || 'Failed to delete review', {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: isDark ? "dark" : "light",
+          });
+      }
+  };
 
     if (loading || authLoading) {
         return (

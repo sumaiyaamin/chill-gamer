@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import { useAuth } from '../components/contexts/AuthContext';
+import Footer from '../components/Footer/Footer';
 
 const MainLayout = () => {
     const { loading } = useAuth();
@@ -21,6 +22,7 @@ const MainLayout = () => {
             <main className="flex-grow">
                 <Outlet />
             </main>
+            <Footer />
             
         </div>
     );

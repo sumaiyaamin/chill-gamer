@@ -7,6 +7,8 @@ import Register from '../components/Register/Register';
 import ReviewDetails from '../components/ReviewDetails/ReviewDetails'; 
 import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 import AllReviews from '../AllReviews/AllReviews';
+import MyReviews from '../components/MyReviews/MyReviews';
+import UpdateReview from '../components/UpdateReview/UpdateReview';
 
 const router = createBrowserRouter([
     {
@@ -39,10 +41,26 @@ const router = createBrowserRouter([
                 element: <ReviewDetails /> 
             },
             {
-                path: '/all-reviews',
+                path: '/reviews',
+                element: (
+                    
+                        <AllReviews />
+                    
+                )
+            },
+            {
+                path: '/my-reviews',
                 element: (
                     <ProtectedRoute>
-                        <AllReviews />
+                        <MyReviews/>
+                    </ProtectedRoute>
+                )
+            },
+            {
+                path: '/update-review/:id',
+                element: (
+                    <ProtectedRoute>
+                        <UpdateReview/>
                     </ProtectedRoute>
                 )
             },

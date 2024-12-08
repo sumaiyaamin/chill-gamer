@@ -47,7 +47,7 @@ const Navbar = () => {
 
     const navLinks = [
         { path: "/", label: "Home" },
-        { path: "/all-reviews", label: "All Reviews" },
+        { path: "/reviews", label: "All Reviews" },
         ...(user ? [
             { path: "/add-review", label: "Add Review" },
             { path: "/my-reviews", label: "My Reviews" },

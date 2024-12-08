@@ -15,13 +15,28 @@ module.exports = {
               },
               // Add more custom colors as needed
           },
+          
       },
   },
+  theme: {
+    extend: {
+      animation: {
+        marquee: 'marquee 25s linear infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+      },
+    },
+  },
+
   variants: {
       extend: {
-          backgroundColor: ['dark', 'light'], // Extend background color variants
-          textColor: ['dark', 'light'], // Extend text color variants
-          borderColor: ['dark', 'light'], // Extend border color variants
+          backgroundColor: ['dark', 'light'], 
+          textColor: ['dark', 'light'], 
+          borderColor: ['dark', 'light'], 
       },
   },
   plugins: [

@@ -345,7 +345,7 @@ const Home = () => {
                                             ${game.price}
                                         </span>
                                         <Link 
-    to={`/reviews/${game._id}`} // Update the path to match the review details route
+    to={`/reviews/${game._id}`} 
     className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all duration-300"
 >
     Explore Details
@@ -391,6 +391,182 @@ const Home = () => {
                     </motion.div>
                 </div>
             </section>
+
+            {/* Newsletter Section */}
+<section
+    className={`py-20 ${
+        isDark
+            ? 'bg-gradient-to-b from-[#1a1c2e] to-[#2a1c3f]'
+            : 'bg-gradient-to-b from-gray-50 to-gray-100'
+    }`}
+>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className={`${
+                isDark ? 'bg-purple-900/20' : 'bg-white'
+            } p-8 md:p-12 rounded-2xl backdrop-blur-sm shadow-lg`}
+        >
+            <div className="text-center max-w-2xl mx-auto">
+                <FaGamepad
+                    className={`text-4xl ${
+                        isDark ? 'text-purple-400' : 'text-purple-600'
+                    } mx-auto mb-4`}
+                />
+                <h2
+                    className={`text-3xl font-bold mb-4 ${
+                        isDark ? 'text-white' : 'text-gray-900'
+                    }`}
+                >
+                    Stay in the Game!
+                </h2>
+                <p
+                    className={`mb-8 ${
+                        isDark ? 'text-gray-300' : 'text-gray-600'
+                    }`}
+                >
+                    Subscribe to our newsletter for the latest game reviews,
+                    tips, and exclusive gaming content.
+                </p>
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        toast.success('Thanks for subscribing!');
+                    }}
+                    className="space-y-4"
+                >
+                    <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            className={`flex-1 px-6 py-3 rounded-lg ${
+                                isDark
+                                    ? 'bg-gray-800/50 border border-purple-500/30 text-white'
+                                    : 'bg-gray-50 border border-gray-300 text-gray-900'
+                            } focus:outline-none focus:border-purple-500 transition-colors`}
+                            required
+                        />
+                        <button
+                            type="submit"
+                            className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all duration-300 transform hover:scale-105"
+                        >
+                            Subscribe
+                        </button>
+                    </div>
+                    <p
+                        className={`text-sm ${
+                            isDark ? 'text-gray-400' : 'text-gray-500'
+                        }`}
+                    >
+                        No spam, unsubscribe at any time.
+                    </p>
+                </form>
+            </div>
+        </motion.div>
+    </div>
+</section>
+
+{/* Gaming Stats Section */}
+<section
+    className={`py-20 ${
+        isDark
+            ? 'bg-gradient-to-b from-[#2a1c3f] to-[#1a1c2e]'
+            : 'bg-gradient-to-b from-gray-100 to-gray-50'
+    }`}
+>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
+            {[
+                {
+                    icon: '🎮',
+                    value: '500+',
+                    label: 'Game Reviews',
+                    color: 'from-purple-500 to-pink-500',
+                },
+                {
+                    icon: '👥',
+                    value: '10K+',
+                    label: 'Active Gamers',
+                    color: 'from-blue-500 to-cyan-500',
+                },
+                {
+                    icon: '⭐',
+                    value: '4.8',
+                    label: 'Average Rating',
+                    color: 'from-yellow-500 to-orange-500',
+                },
+                {
+                    icon: '🏆',
+                    value: '50+',
+                    label: 'Game Categories',
+                    color: 'from-green-500 to-emerald-500',
+                },
+            ].map((stat, index) => (
+                <motion.div
+                    key={stat.label}
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                    className={`${
+                        isDark ? 'bg-purple-900/20' : 'bg-white'
+                    } p-6 rounded-xl backdrop-blur-sm shadow-lg text-center group hover:transform hover:scale-105 transition-all duration-300`}
+                >
+                    <div className="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                        {stat.icon}
+                    </div>
+                    <div
+                        className={`text-3xl font-bold mb-2 bg-gradient-to-r ${
+                            stat.color
+                        } bg-clip-text text-transparent`}
+                    >
+                        {stat.value}
+                    </div>
+                    <div
+                        className={`${
+                            isDark ? 'text-gray-300' : 'text-gray-600'
+                        }`}
+                    >
+                        {stat.label}
+                    </div>
+                </motion.div>
+            ))}
+        </motion.div>
+
+        {/* Fun Facts Ticker */}
+        <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="mt-16 overflow-hidden"
+        >
+            <div className="relative flex items-center py-4">
+                <div className="animate-marquee whitespace-nowrap">
+                    {[
+                        '🎮 Average gaming session: 3 hours',
+                        '🌟 Most reviewed genre: Action RPG',
+                        '🏆 Highest rated game: 4.9/5',
+                        '🎯 90% completion rate on reviews',
+                        '🌍 Gamers from 50+ countries',
+                    ].map((fact, index) => (
+                        <span
+                            key={index}
+                            className={`mx-8 ${
+                                isDark ? 'text-gray-300' : 'text-gray-600'
+                            }`}
+                        >
+                            {fact}
+                        </span>
+                    ))}
+                </div>
+            </div>
+        </motion.div>
+    </div>
+</section>
+
         </div>
     );
 };

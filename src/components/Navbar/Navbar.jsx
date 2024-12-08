@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { toast } from 'react-toastify';
+import { Typewriter } from 'react-simple-typewriter';
 import gameLogo from '../../assets/game-logo.png';
 
 const Navbar = () => {
     const { user, logout } = useAuth();
     const { isDark, setIsDark } = useTheme();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
     // Handle scroll effect
@@ -22,22 +22,9 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Close profile dropdown when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (isProfileOpen && !event.target.closest('.profile-dropdown')) {
-                setIsProfileOpen(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isProfileOpen]);
-
     const handleLogout = async () => {
         try {
             await logout();
-            setIsProfileOpen(false);
             toast.success('Logged out successfully');
         } catch (error) {
             toast.error('Failed to logout');
@@ -96,11 +83,8 @@ const Navbar = () => {
     const AuthButtons = () => {
         if (user) {
             return (
-                <div className="relative profile-dropdown">
-                    <button
-                        onClick={() => setIsProfileOpen(!isProfileOpen)}
-                        className="flex items-center space-x-2 focus:outline-none"
-                    >
+                <div className="relative profile-dropdown group">
+                    <button className="flex items-center space-x-2 focus:outline-none">
                         <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-purple-500 hover:border-pink-500 transition-colors duration-300 transform hover:scale-105">
                             <img
                                 src={user.photoURL}
@@ -110,31 +94,28 @@ const Navbar = () => {
                         </div>
                     </button>
 
-                    {isProfileOpen && (
-                        <div className="absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 transform transition-all duration-200 ease-out origin-top-right">
-                            <div className="px-4 py-2 text-sm border-b dark:border-gray-700">
-                                <p className="font-medium text-gray-900 dark:text-gray-200">
-                                    {user.displayName}
-                                </p>
-                                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                                    {user.email}
-                                </p>
-                            </div>
-                            <Link
-                                to="/profile"
-                                className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                                onClick={() => setIsProfileOpen(false)}
-                            >
-                                Profile Settings
-                            </Link>
-                            <button
-                                onClick={handleLogout}
-                                className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors duration-200"
-                            >
-                                Log Out
-                            </button>
+                    <div className="absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 transform transition-all duration-200 ease-out origin-top-right opacity-0 invisible group-hover:opacity-100 group-hover:visible">
+                        <div className="px-4 py-2 text-sm border-b dark:border-gray-700">
+                            <p className="font-medium text-gray-900 dark:text-gray-200">
+                                {user.displayName}
+                            </p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                                {user.email}
+                            </p>
                         </div>
-                    )}
+                        <Link
+                            to="/profile"
+                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                        >
+                            Profile Settings
+                        </Link>
+                        <button
+                            onClick={handleLogout}
+                            className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors duration-200"
+                        >
+                            Log Out
+                        </button>
+                    </div>
                 </div>
             );
         }
@@ -165,7 +146,7 @@ const Navbar = () => {
         }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
-                    {/* Logo */}
+                    {/* Logo with Typewriter */}
                     <div className="flex-shrink-0 group">
                         <Link to="/" className="flex items-center space-x-3">
                             <div className="relative">
@@ -177,7 +158,15 @@ const Navbar = () => {
                                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-30 group-hover:opacity-100 transition duration-300"></div>
                             </div>
                             <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text group-hover:from-purple-400 group-hover:to-pink-400 transition-all duration-300">
-                                Chill Gamer
+                                <Typewriter
+                                    words={['Chill Gamer', 'Play More', 'Review Better', 'Game On!']}
+                                    loop={true}
+                                    cursor
+                                    cursorStyle='|'
+                                    typeSpeed={70}
+                                    deleteSpeed={50}
+                                    delaySpeed={1000}
+                                />
                             </span>
                         </Link>
                     </div>

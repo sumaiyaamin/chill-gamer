@@ -10,6 +10,7 @@ import AllReviews from '../AllReviews/AllReviews';
 import MyReviews from '../components/MyReviews/MyReviews';
 import UpdateReview from '../components/UpdateReview/UpdateReview';
 import MyWatchlist from '../components/MyWatchlist/MyWatchlist';
+import NotFound from '../components/NotFound/NotFound';
 
 const router = createBrowserRouter([
     {
@@ -71,6 +72,12 @@ const router = createBrowserRouter([
                     <ProtectedRoute>
                         <MyWatchlist />
                     </ProtectedRoute>
+                )
+            },
+            {
+                path: '*',
+                element: (
+                    <NotFound />
                 )
             },
         

@@ -155,7 +155,7 @@ const Home = () => {
                                         </div>
                                     </div>
 
-                                    <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-400">
+                                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-purple-700 leading-7">
                                         {sliderData[currentSlide].title}
                                     </h1>
 
@@ -176,15 +176,7 @@ const Home = () => {
                                     </p>
 
                                     <div className="flex items-center gap-6">
-                                        <Link 
-                                            to={`/game/${sliderData[currentSlide].id}`}
-                                            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all duration-300 transform hover:scale-105"
-                                        >
-                                            View Details
-                                            <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                                            </svg>
-                                        </Link>
+                                       
                                         <span className="text-2xl font-bold text-purple-400">
                                             ${sliderData[currentSlide].price}
                                         </span>

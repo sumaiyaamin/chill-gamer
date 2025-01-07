@@ -24,7 +24,7 @@ const MyReviews = () => {
 
     const fetchUserReviews = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/users/${user.email}/reviews`);
+            const response = await fetch(`https://chill-gamer-server-v1.vercel.app/users/${user.email}/reviews`);
             const data = await response.json();
 
             if (response.ok) {
@@ -54,7 +54,7 @@ const MyReviews = () => {
           });
   
           if (result.isConfirmed) {
-              const response = await fetch(`http://localhost:5000/reviews/${reviewId}?userEmail=${user.email}`, {
+              const response = await fetch(`https://chill-gamer-server-v1.vercel.app/reviews/${reviewId}?userEmail=${user.email}`, {
                   method: 'DELETE'
               });
   

@@ -24,13 +24,13 @@ const MyWatchlist = () => {
 
     const fetchWatchlist = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/users/${user.email}/watchlist`);
+            const response = await fetch(`https://chill-gamer-server-v1.vercel.app/users/${user.email}/watchlist`);
             const watchlistItems = await response.json();
 
             if (response.ok) {
                 // Fetch full review details for each watchlist item
                 const reviewPromises = watchlistItems.map(item =>
-                    fetch(`http://localhost:5000/reviews/${item.reviewId}`).then(res => res.json())
+                    fetch(`https://chill-gamer-server-v1.vercel.app/reviews/${item.reviewId}`).then(res => res.json())
                 );
 
                 const reviews = await Promise.all(reviewPromises);
@@ -65,7 +65,7 @@ const MyWatchlist = () => {
             });
 
             if (result.isConfirmed) {
-                const response = await fetch(`http://localhost:5000/watchlist/${reviewId}?userEmail=${user.email}`, {
+                const response = await fetch(`https://chill-gamer-server-v1.vercel.app/watchlist/${reviewId}?userEmail=${user.email}`, {
                     method: 'DELETE'
                 });
 

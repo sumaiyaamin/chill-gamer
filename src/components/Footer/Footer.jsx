@@ -2,11 +2,10 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import { 
     FaFacebookF, 
-    FaTwitter, 
-    FaInstagram, 
-    FaYoutube, 
+     
+    FaGithub ,
     FaDiscord, 
-    FaTwitch,
+    
     FaGamepad,
     FaEnvelope,
     FaPhone,
@@ -27,7 +26,7 @@ const Footer = () => {
 
             {/* Main Footer Content */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-11 mb-8">
                     {/* Company Info */}
                     <div>
                         <div className="flex items-center gap-2 mb-4">
@@ -79,53 +78,9 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Community */}
-                    <div>
-                        <h3 className={`text-lg font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                            Community
-                        </h3>
-                        <ul className="space-y-2">
-                            <li>
-                                <a href="#" className="hover:text-purple-500 transition-colors">Gaming Forum</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-purple-500 transition-colors">Discord Server</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-purple-500 transition-colors">Game Guides</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-purple-500 transition-colors">News & Updates</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-purple-500 transition-colors">Support</a>
-                            </li>
-                        </ul>
-                    </div>
+                   
 
-                    {/* Legal */}
-                    <div>
-                        <h3 className={`text-lg font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                            Legal
-                        </h3>
-                        <ul className="space-y-2">
-                            <li>
-                                <a href="#" className="hover:text-purple-500 transition-colors">Terms of Service</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-purple-500 transition-colors">Privacy Policy</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-purple-500 transition-colors">Cookie Policy</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-purple-500 transition-colors">GDPR</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-purple-500 transition-colors">Contact Legal</a>
-                            </li>
-                        </ul>
-                    </div>
+                   
                 </div>
 
                 {/* Social Links */}
@@ -133,12 +88,12 @@ const Footer = () => {
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                         <div className="flex items-center space-x-4">
                             {[
-                                { href: "#", icon: FaFacebookF, label: "Facebook" },
-                                { href: "#", icon: FaTwitter, label: "Twitter" },
-                                { href: "#", icon: FaInstagram, label: "Instagram" },
-                                { href: "#", icon: FaYoutube, label: "YouTube" },
-                                { href: "#", icon: FaDiscord, label: "Discord" },
-                                { href: "#", icon: FaTwitch, label: "Twitch" },
+                                { href: "https://www.facebook.com/sumaiyaaaaaaaaaaaaaaaaaaaaamin/", icon: FaFacebookF, label: "Facebook" },
+                                { href: "https://github.com/sumaiyaamin", icon: FaGithub, label: "Github" },
+                               
+                                
+                                { href: "https://discord.com/channels/1254673307735691376/1254693461378994187", icon: FaDiscord, label: "Discord" },
+                                
                             ].map(({ href, icon: Icon, label }) => (
                                 <a 
                                     key={label}
@@ -153,7 +108,7 @@ const Footer = () => {
                             ))}
                         </div>
                         <div className="text-sm text-center md:text-right">
-                            <p>© {currentYear} Chill Gamer. All rights reserved.</p>
+                            <p>© {currentYear} Sumaiya Amin Prova. All rights reserved.</p>
                             <p className="mt-1">
                                 Made with ❤ for gamers by gamers
                             </p>

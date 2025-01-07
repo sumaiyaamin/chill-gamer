@@ -11,7 +11,7 @@ const HighestRatedGames = () => {
     useEffect(() => {
         const fetchHighestRated = async () => {
             try {
-                const response = await fetch('http://localhost:5000/highest-rated-games');
+                const response = await fetch('https://chill-gamer-server-v1.vercel.app/highest-rated-games');
                 if (!response.ok) {
                     throw new Error('Failed to fetch games');
                 }

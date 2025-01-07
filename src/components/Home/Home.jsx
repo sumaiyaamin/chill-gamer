@@ -56,7 +56,7 @@ const Home = () => {
     useEffect(() => {
         const fetchGames = async () => {
             try {
-                const response = await fetch('http://localhost:5000/highest-rated-games');
+                const response = await fetch('https://chill-gamer-server-v1.vercel.app/highest-rated-games');
                 if (!response.ok) throw new Error('Failed to fetch games');
                 const data = await response.json();
                 setGames(data);
@@ -385,7 +385,7 @@ const Home = () => {
             </section>
 
             {/* Newsletter Section */}
-<section
+            <section
     className={`py-20 ${
         isDark
             ? 'bg-gradient-to-b from-[#1a1c2e] to-[#2a1c3f]'
@@ -396,6 +396,7 @@ const Home = () => {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             className={`${
                 isDark ? 'bg-purple-900/20' : 'bg-white'
             } p-8 md:p-12 rounded-2xl backdrop-blur-sm shadow-lg`}
@@ -411,53 +412,32 @@ const Home = () => {
                         isDark ? 'text-white' : 'text-gray-900'
                     }`}
                 >
-                    Stay in the Game!
+                    Join Our Community!
                 </h2>
                 <p
                     className={`mb-8 ${
                         isDark ? 'text-gray-300' : 'text-gray-600'
                     }`}
                 >
-                    Subscribe to our newsletter for the latest game reviews,
-                    tips, and exclusive gaming content.
+                    Connect with fellow gamers, share your achievements, 
+                    and stay updated on the latest events and tournaments!
                 </p>
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        toast.success('Thanks for subscribing!');
-                    }}
-                    className="space-y-4"
-                >
-                    <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            className={`flex-1 px-6 py-3 rounded-lg ${
-                                isDark
-                                    ? 'bg-gray-800/50 border border-purple-500/30 text-white'
-                                    : 'bg-gray-50 border border-gray-300 text-gray-900'
-                            } focus:outline-none focus:border-purple-500 transition-colors`}
-                            required
-                        />
-                        <button
-                            type="submit"
-                            className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all duration-300 transform hover:scale-105"
-                        >
-                            Subscribe
-                        </button>
-                    </div>
-                    <p
-                        className={`text-sm ${
-                            isDark ? 'text-gray-400' : 'text-gray-500'
-                        }`}
+                <div className="flex justify-center gap-6">
+                    <a
+                        href="https://discord.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all duration-300 transform hover:scale-105"
                     >
-                        No spam, unsubscribe at any time.
-                    </p>
-                </form>
+                        Join Discord
+                    </a>
+                    
+                </div>
             </div>
         </motion.div>
     </div>
 </section>
+
 
 {/* Gaming Stats Section */}
 <section

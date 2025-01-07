@@ -102,7 +102,7 @@ const AddReview = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:5000/reviews', {
+            const response = await fetch('https://chill-gamer-server-v1.vercel.app/reviews', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -122,7 +122,7 @@ const AddReview = () => {
                     cancelButtonText: 'Add Another Review'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate('/all-reviews');
+                        navigate('/reviews');
                     } else {
                         // Reset form for new review
                         setFormData(prev => ({

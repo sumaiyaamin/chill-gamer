@@ -21,7 +21,7 @@ const ReviewDetails = () => {
     useEffect(() => {
         const fetchReview = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/reviews/${id}`); // Corrected URL
+                const response = await fetch(`https://chill-gamer-server-v1.vercel.app/reviews/${id}`); // Corrected URL
                 if (!response.ok) throw new Error('Review not found');
                 const data = await response.json();
                 setReview(data);
@@ -29,7 +29,7 @@ const ReviewDetails = () => {
                 // Check if review is in user's watchlist
                 if (user) {
                     const watchlistResponse = await fetch(
-                        `http://localhost:5000/watchlist/check/${id}?userEmail=${user.email}` // Corrected URL
+                        `https://chill-gamer-server-v1.vercel.app/watchlist/check/${id}?userEmail=${user.email}` // Corrected URL
                     );
                     const watchlistData = await watchlistResponse.json();
                     setIsInWatchlist(watchlistData.isInWatchlist);
@@ -53,7 +53,7 @@ const ReviewDetails = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/watchlist/add', {
+            const response = await fetch('https://chill-gamer-server-v1.vercel.app/watchlist/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

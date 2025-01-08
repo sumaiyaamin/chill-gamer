@@ -43,7 +43,7 @@
 
 1. Clone the repository
 bash
-git clone https://github.com/yourusername/chill-gamer.git
+git clone https://github.com/sumaiyaamin/chill-gamer.git
 
 
 2. Install dependencies

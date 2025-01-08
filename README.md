@@ -7,7 +7,7 @@
 </div>
 
 ## 🌐 Live Demo
-[Visit Chill Gamer](https://chill-gamer.web.app)
+[Visit Chill Gamer](https://chill-gamer-68a9e.firebaseapp.com/)
 
 ## ✨ Key Features
 

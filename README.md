@@ -55,7 +55,7 @@ npm install
 3. Set up environment variables
 Create a .env file in the root directory and add:
 
-MONGODB_URI=your_mongodb_uri
+
 FIREBASE_API_KEY=your_firebase_api_key
 
 
@@ -73,11 +73,6 @@ npm run dev
 - Bookmark favorite reviews
 - Dark/Light mode preference
 
-### Admin Features
-- Review management
-- User management
-- Analytics dashboard
-- Content moderation
 
 ## 🤝 Contributing
 

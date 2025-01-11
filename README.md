@@ -24,7 +24,6 @@
 
 - React.js
 - Firebase (Authentication) 
-- MongoDB  (Database)
 - Express.js
 - Node.js
 - Tailwind CSS
@@ -36,7 +35,6 @@
 ### Prerequisites
 - Node.js (v14 or higher)
 - npm or yarn
-- MongoDB account
 - Firebase account
 
 ### Installation

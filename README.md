@@ -9,6 +9,13 @@
 ## 🌐 Live Demo
 [Visit Chill Gamer](https://chill-gamer-68a9e.firebaseapp.com/)
 
+
+# Preview
+<div align="center">
+  <img src="https://github.com/sumaiyaamin/chill-gamer/blob/main/Chill-Gamer.png"  />
+</div>
+
+
 ## ✨ Key Features
 
 - *Dark/Light Mode Toggle* - Customizable viewing experience with smooth theme transitions

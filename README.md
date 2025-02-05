@@ -6,8 +6,11 @@
   ### Your Ultimate Gaming Review Platform
 </div>
 
-## 🌐 Live Demo
-[Visit Chill Gamer](https://chill-gamer-68a9e.firebaseapp.com/)
+<div align="center">
+         
+  [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](https://chill-gamer-68a9e.firebaseapp.com/)
+
+</div>
 
 
 # Preview
@@ -47,26 +50,28 @@
 ### Installation
 
 1. Clone the repository
-bash
+```bash
 git clone https://github.com/sumaiyaamin/chill-gamer.git
-
+```
 
 2. Install dependencies
-bash
+```bash
 cd chill-gamer
 npm install
-
+```
 
 3. Set up environment variables
 Create a .env file in the root directory and add:
 
-
+```bash
 FIREBASE_API_KEY=your_firebase_api_key
-
+MONGODB_URI=your_mongodb_uri
+```
 
 4. Start the development server
-bash
+```bash
 npm run dev
+```
 
 
 ## 📱 Features Overview
